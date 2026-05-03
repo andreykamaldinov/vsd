@@ -1,19 +1,19 @@
 <button
   type="button"
-  class="user-btn"
-  [class.selected]="selected()"
-  [class.focused]="focused()"
-  [attr.data-user-index]="index()"
-  [tabindex]="focused() ? 0 : -1"
-  (click)="toggle.emit()"
-  (keydown)="onKey($event)"
-  [attr.aria-selected]="selected()"
+  class="flex w-full cursor-pointer items-start gap-2.5 rounded-lg border border-transparent bg-transparent px-3 py-2 text-left text-inherit transition-colors hover:border-blue-300 hover:bg-blue-50 aria-selected:border-blue-300 aria-selected:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
   role="option"
+  [attr.data-user-index]="index()"
+  [attr.aria-selected]="selected()"
+  (click)="onToggle()"
 >
-  <span class="avatar" [style.background]="user().avatarColor">{{ user().initials }}</span>
-  <span class="stack">
-    <span class="name">{{ user().name }}</span>
-    <span class="line">{{ user().role }} · {{ user().company }}</span>
-    <span class="email">{{ user().email }}</span>
+  <span
+    class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-xs font-semibold text-white bg-gray-500"
+  >
+    {{ user().initials }}
+  </span>
+  <span class="flex min-w-0 flex-col gap-0.5">
+    <span class="leading-5 font-semibold">{{ user().name }}</span>
+    <span class="break-words text-xs leading-5 text-slate-500">{{ user().role }} · {{ user().company }}</span>
+    <span class="break-words text-xs leading-5 text-slate-500">{{ user().email }}</span>
   </span>
 </button>

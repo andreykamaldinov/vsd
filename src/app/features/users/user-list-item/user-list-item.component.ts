@@ -3,28 +3,19 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import type { User } from '../../../core/models/user.model';
 
 @Component({
-  selector: 'app-user-list-item',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './user-list-item.component.html',
-  styleUrl: './user-list-item.component.scss',
+    selector: 'app-user-list-item',
+    standalone: true,
+    templateUrl: './user-list-item.component.html',
+    styleUrl: './user-list-item.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListItemComponent {
-  readonly user = input.required<User>();
-  readonly index = input.required<number>();
-  readonly selected = input(false);
-  readonly focused = input(false);
+    public readonly user = input.required<User>();
+    public readonly index = input.required<number>();
+    public readonly selected = input<boolean>(false);
+    public readonly toggled = output<number>();
 
-  readonly toggle = output<void>();
-  readonly moveFocus = output<-1 | 1>();
-
-  onKey(ev: KeyboardEvent): void {
-    if (ev.key === 'ArrowDown') {
-      ev.preventDefault();
-      this.moveFocus.emit(1);
-    } else if (ev.key === 'ArrowUp') {
-      ev.preventDefault();
-      this.moveFocus.emit(-1);
+    public onToggle(): void {
+        this.toggled.emit(this.user().id);
     }
-  }
 }
