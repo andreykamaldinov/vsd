@@ -92,13 +92,9 @@ export function sliceVirtualScrollItems<T>(
     if (layout.startIndex >= layout.endIndex) {
         return [];
     }
-    const out: VirtualScrollViewItem<T>[] = [];
-    for (let i = layout.startIndex; i < layout.endIndex; i++) {
-        const item = items.at(i);
-        if (item === undefined) {
-            break;
-        }
-        out.push({ item, index: i });
-    }
-    return out;
+
+    return items.slice(layout.startIndex, layout.endIndex).map((item, offset) => ({
+        item,
+        index: layout.startIndex + offset,
+    }));
 }

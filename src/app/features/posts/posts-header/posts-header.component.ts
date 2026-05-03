@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AppStore } from '../../../core/store/app.store';
-import { PostSortMode } from '../../../core/models/sort-mode';
+import { AppStore } from '../../../store/app.store';
+import { PostSortMode } from '../../../shared/models/sort-mode';
 
 @Component({
     selector: 'app-posts-header',

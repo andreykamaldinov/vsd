@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 
-import { generateCommentsForPost } from '../../../core/data/fake-data.generator';
-import type { Comment } from '../../../core/models/comment.model';
+import { generateCommentsForPost } from '../../../shared/data/fake-data.generator';
+import type { Comment } from '../../../shared/models/comment.model';
 import { DialogCloseDirective } from '../../../shared/dialog/dialog-close.directive';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { PostDialogService } from './post-dialog.service';
@@ -11,8 +11,8 @@ import { PostDialogService } from './post-dialog.service';
     selector: 'app-post-dialog',
     imports: [DialogComponent, DialogCloseDirective, DatePipe],
     templateUrl: './post-dialog.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
-  })
+    changeDetection: ChangeDetectionStrategy.OnPush,
+})
 export class PostDialogComponent {
     private readonly postDialog = inject(PostDialogService);
 

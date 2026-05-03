@@ -6,7 +6,7 @@
     aria-label="Post list"
     appPostList
     [posts]="posts()"
-    [virtualScroll]="postsVirtualScroll()"
+    [virtualScroll]="postsVirtualScroll() ?? null"
     (activatePost)="openPost($event)"
   >
     @if (posts().length === 0) {
@@ -29,7 +29,7 @@
             <app-post-list-item
               class="min-h-0 flex-1"
               [post]="post"
-              [author]="userById().get(post.userId)"
+              [author]="userById().get(post.userId) ?? null"
               (pick)="openPost($event)"
             />
           </div>

@@ -3,8 +3,11 @@ import type { Post } from '../models/post.model';
 import type { User } from '../models/user.model';
 
 export function mulberry32(seed: number): () => number {
+    let state = seed;
+
     return () => {
-        let t = (seed += 0x6d2b79f5);
+        state += 0x6d2b79f5;
+        let t = state;
         t = Math.imul(t ^ (t >>> 15), t | 1);
         t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
@@ -266,7 +269,8 @@ const TAG_POOL = [
 const AVATAR_HUES = [210, 24, 142, 48, 280, 168, 32, 200, 12, 320, 96, 260];
 
 function pick<T>(rand: () => number, arr: readonly T[]): T {
-    return arr[Math.floor(rand() * arr.length)]!;
+    const index = Math.floor(rand() * arr.length);
+    return arr[index] as T;
 }
 
 function buildParagraph(rand: () => number, minWords: number, maxWords: number): string {
@@ -307,7 +311,7 @@ export function generateUsers(count: number, seed = 42): User[] {
         const email = `${first.toLowerCase()}.${last.toLowerCase()}@${company
             .toLowerCase()
             .replace(/\s+/g, '')}.example.com`;
-        const hue = AVATAR_HUES[id % AVATAR_HUES.length]!;
+        const hue = AVATAR_HUES[id % AVATAR_HUES.length] ?? AVATAR_HUES[0];
         users.push({
             id,
             name: `${first} ${last}`,

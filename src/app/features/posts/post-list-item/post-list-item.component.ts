@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
-import type { Post } from '../../../core/models/post.model';
-import type { User } from '../../../core/models/user.model';
+import type { Post } from '../../../shared/models/post.model';
+import type { User } from '../../../shared/models/user.model';
 
 @Component({
     selector: 'app-post-list-item',
@@ -14,7 +14,7 @@ import type { User } from '../../../core/models/user.model';
 })
 export class PostListItemComponent {
     public readonly post = input.required<Post>();
-    public readonly author = input<User | undefined>(undefined);
+    public readonly author = input<User | null>(null);
 
     public readonly pick = output<Post>();
 }

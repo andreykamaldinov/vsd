@@ -1,10 +1,10 @@
 import { computed, Injectable, signal } from '@angular/core';
 
-import { filterAndSortPosts } from '../data/post-query';
-import { generatePosts, generateUsers } from '../data/fake-data.generator';
-import type { Post } from '../models/post.model';
-import { type PostSortMode } from '../models/sort-mode';
-import type { User } from '../models/user.model';
+import { filterAndSortPosts } from '../shared/data/post-query';
+import { generatePosts, generateUsers } from '../shared/data/fake-data.generator';
+import type { Post } from '../shared/models/post.model';
+import { type PostSortMode } from '../shared/models/sort-mode';
+import type { User } from '../shared/models/user.model';
 
 const USER_COUNT = 1000;
 const POST_COUNT = 10_000;
@@ -86,7 +86,7 @@ export class AppStore {
         this.postSearch.set(nextSearch);
         this.sort.set(sortRaw);
 
-        if (leadPostIdFromUrl !== undefined) {
+        if (leadPostIdFromUrl != null) {
             const id = Math.max(0, Math.floor(leadPostIdFromUrl));
             this.setLeadFirstVisiblePostId(id);
         }
