@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 export class PostListItemComponent {
     public readonly post = input.required<Post>();
     public readonly index = input.required<number>();
-    public readonly author = input<User | null>(null);
+    public readonly author = input<User | undefined>(undefined);
     public readonly focused = input(false);
 
     public readonly pick = output<Post>();

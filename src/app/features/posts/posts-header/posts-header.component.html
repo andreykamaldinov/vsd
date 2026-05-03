@@ -1,27 +1,39 @@
-<header class="sticky-head" aria-label="Posts filters">
-  <div class="row title-row">
-    <h2>Posts</h2>
-    <p class="sub">
-      <span class="count-line" aria-live="polite">{{ scrollPositionLine() }}</span>
+<header
+  class="sticky top-0 z-[3] px-4 py-3 backdrop-blur-md border-b border-slate-200 bg-white/90"
+  aria-label="Posts filters"
+>
+  <div class="mb-2.5">
+    <h2 class="m-0 text-base font-semibold">Posts</h2>
+
+    <p class="mt-1 text-sm text-slate-500 leading-snug">
+      <span aria-live="polite">
+        {{ scrollPositionLine() }}
+      </span>
     </p>
   </div>
-  <div class="controls">
+
+  <div class="flex flex-wrap gap-2">
     <label class="sr-only" for="post-search">Search posts</label>
+
     <input
       id="post-search"
       type="search"
-      class="search"
       placeholder="Search title or body…"
       autocomplete="off"
       [value]="draft()"
       (input)="onSearchInput($event)"
+      class="flex-1 min-w-[180px] px-2.5 py-1.5 rounded-lg border border-slate-200 font-inherit
+             focus-visible:outline-2 focus-visible:outline focus-visible:outline-blue-600 focus-visible:outline-offset-2"
     />
+
     <label class="sr-only" for="post-sort">Sort posts</label>
+
     <select
       id="post-sort"
-      class="sort"
       [ngModel]="store.sort()"
       (ngModelChange)="onSort($event)"
+      class="px-2 py-1.5 rounded-lg border border-slate-200 bg-white font-inherit
+             focus-visible:outline-2 focus-visible:outline focus-visible:outline-blue-600 focus-visible:outline-offset-2"
     >
       <option value="recent">Recent</option>
       <option value="title">Title A–Z</option>
