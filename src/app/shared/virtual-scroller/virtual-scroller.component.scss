@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  min-height: 0;
+  flex: 1;
+}
+
+.vs-viewport {
+  position: relative;
+  overflow: auto;
+  height: 100%;
+  min-height: 0;
+  contain: strict;
+}
+
+.vs-scroll-rail {
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+}
+
+.vs-window {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  will-change: transform;
+  pointer-events: auto;
+}
+
+.vs-row {
+  /* Do not clip: measurement must reflect full laid-out height */
+  min-height: 0;
+  padding-bottom: 0.35rem;
+  box-sizing: border-box;
+}

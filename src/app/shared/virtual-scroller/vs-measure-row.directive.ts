@@ -27,12 +27,25 @@ export class VsMeasureRowDirective {
 
   constructor() {
     afterNextRender(() => {
+      let raf = 0;
       this.ro = new ResizeObserver(() => {
-        const h = this.el.nativeElement.getBoundingClientRect().height;
-        this.host.reportMeasuredHeight(this.appVsMeasureRow(), h);
+        if (raf) {
+          return;
+        }
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          const el = this.el.nativeElement;
+          const h = el.offsetHeight;
+          this.host.reportMeasuredHeight(this.appVsMeasureRow(), h);
+        });
       });
       this.ro.observe(this.el.nativeElement);
-      this.destroyRef.onDestroy(() => this.ro?.disconnect());
+      this.destroyRef.onDestroy(() => {
+        this.ro?.disconnect();
+        if (raf) {
+          cancelAnimationFrame(raf);
+        }
+      });
     });
   }
 }

@@ -1,0 +1,19 @@
+<button
+  type="button"
+  class="post-btn"
+  [class.focused]="focused()"
+  [attr.data-post-index]="index()"
+  [tabindex]="focused() ? 0 : -1"
+  (click)="pick.emit(post())"
+  (keydown)="onKey($event)"
+>
+  <span class="title">{{ post().title }}</span>
+  <span class="preview">{{ preview() }}</span>
+  <span class="meta">
+    <span>{{ authorName() }}</span>
+    <span>·</span>
+    <time [attr.datetime]="isoDate()">{{ formattedDate() }}</time>
+    <span>·</span>
+    <span>{{ post().readTime }} min read</span>
+  </span>
+</button>

@@ -1,0 +1,47 @@
+@if (open()) {
+  <div class="backdrop" (click)="onBackdrop($event)" role="presentation"></div>
+  <div
+    class="panel"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="titleId"
+    tabindex="-1"
+    #panel
+  >
+    <header class="panel-head">
+      <h2 [id]="titleId">{{ post()!.title }}</h2>
+      <button type="button" class="icon-btn" (click)="close.emit()" aria-label="Close dialog">
+        ✕
+      </button>
+    </header>
+    <div class="meta">
+      <span>{{ authorName() }}</span>
+      <span>·</span>
+      <time [attr.datetime]="isoDate()">{{ formattedDate() }}</time>
+      <span>·</span>
+      <span>{{ post()!.readTime }} min read</span>
+    </div>
+    <p class="body">{{ post()!.body }}</p>
+    @if (post()!.tags.length) {
+      <ul class="tags" aria-label="Tags">
+        @for (tag of post()!.tags; track tag) {
+          <li>{{ tag }}</li>
+        }
+      </ul>
+    }
+    <section class="comments" aria-label="Comments">
+      <h3>Comments ({{ comments().length }})</h3>
+      <ul>
+        @for (c of comments(); track c.id) {
+          <li>
+            <div class="c-head">
+              <strong>{{ c.author }}</strong>
+              <time [attr.datetime]="commentIso(c)">{{ commentFormatted(c) }}</time>
+            </div>
+            <p>{{ c.body }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+}

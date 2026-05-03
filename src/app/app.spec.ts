@@ -1,19 +1,34 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { App } from './app.component';
+import { AppShell } from './app-shell.component';
+import { Home } from './home.component';
+import { routes } from './app.routes';
 
-describe('App', () => {
+describe('AppShell', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
-      providers: [provideRouter([])],
+      imports: [AppShell],
+      providers: [provideRouter(routes)],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create the shell', () => {
+    const fixture = TestBed.createComponent(AppShell);
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+});
+
+describe('Home', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Home],
+      providers: [provideRouter(routes)],
+    }).compileComponents();
+  });
+
+  it('should create the home page', () => {
+    const fixture = TestBed.createComponent(Home);
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

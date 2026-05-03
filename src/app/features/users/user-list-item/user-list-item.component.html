@@ -1,0 +1,19 @@
+<button
+  type="button"
+  class="user-btn"
+  [class.selected]="selected()"
+  [class.focused]="focused()"
+  [attr.data-user-index]="index()"
+  [tabindex]="focused() ? 0 : -1"
+  (click)="toggle.emit()"
+  (keydown)="onKey($event)"
+  [attr.aria-selected]="selected()"
+  role="option"
+>
+  <span class="avatar" [style.background]="user().avatarColor">{{ user().initials }}</span>
+  <span class="stack">
+    <span class="name">{{ user().name }}</span>
+    <span class="line">{{ user().role }} · {{ user().company }}</span>
+    <span class="email">{{ user().email }}</span>
+  </span>
+</button>

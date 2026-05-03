@@ -1,0 +1,30 @@
+<header class="sticky-head" aria-label="Posts filters">
+  <div class="row title-row">
+    <h2>Posts</h2>
+    <p class="sub">
+      <span class="count-line" aria-live="polite">{{ scrollPositionLine() }}</span>
+    </p>
+  </div>
+  <div class="controls">
+    <label class="sr-only" for="post-search">Search posts</label>
+    <input
+      id="post-search"
+      type="search"
+      class="search"
+      placeholder="Search title or body…"
+      autocomplete="off"
+      [value]="draft()"
+      (input)="onSearchInput($event)"
+    />
+    <label class="sr-only" for="post-sort">Sort posts</label>
+    <select
+      id="post-sort"
+      class="sort"
+      [ngModel]="store.sort()"
+      (ngModelChange)="onSort($event)"
+    >
+      <option value="recent">Recent</option>
+      <option value="title">Title A–Z</option>
+    </select>
+  </div>
+</header>

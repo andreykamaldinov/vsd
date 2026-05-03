@@ -1,0 +1,47 @@
+<section class="posts-col" aria-label="Posts">
+  <app-posts-header
+    [shownPostsCount]="shownPostsCount()"
+    [filteredPostsTotal]="posts().length"
+  />
+  <div
+    class="scroll-wrap"
+    role="list"
+    aria-label="Post list"
+    [tabIndex]="posts().length ? 0 : -1"
+    (keydown)="onPostsListKeydown($event)"
+    (mousedown)="onPostsListMouseDown($event)"
+  >
+    @if (posts().length === 0) {
+      <p class="empty" role="status">No posts match the current filters.</p>
+    } @else {
+      <app-virtual-scroller
+        #vs
+        class="list-viewport"
+        [items]="posts()"
+        [trackBy]="trackPost"
+        [estimatedItemHeight]="200"
+        [overscan]="8"
+        (visibleRangeChange)="onPostsVisibleRange($event)"
+        (renderedRangeChange)="onRenderedRangeChange($event)"
+      >
+        <ng-template let-post let-index="index">
+          <app-post-list-item
+            [post]="post"
+            [index]="index"
+            [author]="userById().get(post.userId)"
+            [focused]="index === focusedIndex()"
+            (pick)="openDialog($event)"
+            (moveFocus)="onMoveFocus($event)"
+            (activate)="openDialog($event)"
+          />
+        </ng-template>
+      </app-virtual-scroller>
+    }
+  </div>
+</section>
+<app-post-dialog
+  [open]="dialogOpen()"
+  [post]="dialogPost()"
+  [author]="dialogAuthor()"
+  (close)="closeDialog()"
+/>

@@ -1,0 +1,41 @@
+@use '../../../shared/styles/feature-layout' as layout;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  border-right: 1px solid var(--border, #e2e8f0);
+  background: var(--surface-2, #f8fafc);
+}
+
+.users-col {
+  @include layout.flex-column-grow;
+}
+
+.sticky-head {
+  @include layout.sticky-column-header(2, surface-2, #f8fafc);
+}
+
+.head-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.listbox {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.65rem 0.85rem;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.list-viewport {
+  @include layout.list-viewport-flex;
+}

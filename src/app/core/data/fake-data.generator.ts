@@ -345,6 +345,11 @@ export function generatePosts(count: number, userCount: number, seed = 42): Post
   return posts;
 }
 
+/** Deterministic count in the inclusive range 2..15 (assignment requirement). */
+export function commentCountForPost(postId: number): number {
+  return 2 + (Math.abs(postId) % 14);
+}
+
 export function generateCommentsForPost(postId: number, count: number, seed: number): Comment[] {
   const rand = mulberry32(seed ^ (postId * 2654435761));
   const comments: Comment[] = [];

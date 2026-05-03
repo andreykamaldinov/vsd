@@ -1,10 +1,6 @@
 import type { Post } from '../models/post.model';
 import type { PostSortMode } from '../models/sort-mode';
 
-/**
- * Pure filtering: empty selection shows all posts; otherwise match userId.
- * Search matches title and body case-insensitively (trimmed query).
- */
 export function filterPosts(
   posts: readonly Post[],
   selectedUserIds: ReadonlySet<number>,

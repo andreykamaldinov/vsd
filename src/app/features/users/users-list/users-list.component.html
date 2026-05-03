@@ -1,0 +1,37 @@
+<section class="users-col" aria-label="Users">
+  <header class="sticky-head">
+    <h2 class="head-title">{{ usersSummary() }}</h2>
+  </header>
+  <div
+    class="listbox"
+    role="listbox"
+    aria-label="Users"
+    aria-multiselectable="true"
+    [tabIndex]="users().length ? 0 : -1"
+    (keydown)="onUsersListKeydown($event)"
+    (mousedown)="onUsersListMouseDown($event)"
+  >
+    <app-virtual-scroller
+      #vs
+      class="list-viewport"
+      [items]="users()"
+      [trackBy]="trackUser"
+      [estimatedItemHeight]="96"
+      [overscan]="10"
+      [focusedIndex]="focusedIndex() >= 0 ? focusedIndex() : null"
+      [focusedScrollBehavior]="'auto'"
+      (visibleRangeChange)="onUsersVisibleRange($event)"
+    >
+      <ng-template let-user let-index="index">
+        <app-user-list-item
+          [user]="user"
+          [index]="index"
+          [selected]="isSelected(user.id)"
+          [focused]="index === focusedIndex()"
+          (toggle)="onUserRowClick(index, user.id)"
+          (moveFocus)="onUserMoveFocus($event)"
+        />
+      </ng-template>
+    </app-virtual-scroller>
+  </div>
+</section>

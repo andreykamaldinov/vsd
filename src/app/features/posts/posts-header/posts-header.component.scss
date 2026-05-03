@@ -1,0 +1,60 @@
+@use '../../../shared/styles/feature-layout' as layout;
+
+:host {
+  display: block;
+}
+
+.sticky-head {
+  @include layout.sticky-column-header(3, surface, #fff);
+}
+
+.title-row {
+  margin-bottom: 0.65rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.sub {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted, #64748b);
+  line-height: 1.4;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.search {
+  flex: 1 1 180px;
+  min-width: 0;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--border, #e2e8f0);
+  font: inherit;
+
+  &:focus-visible {
+    outline: 2px solid var(--ring, #2563eb);
+    outline-offset: 2px;
+  }
+}
+
+.sort {
+  flex: none;
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border, #e2e8f0);
+  font: inherit;
+  background: var(--surface, #fff);
+
+  &:focus-visible {
+    outline: 2px solid var(--ring, #2563eb);
+    outline-offset: 2px;
+  }
+}
