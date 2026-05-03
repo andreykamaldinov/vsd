@@ -28,7 +28,7 @@ jobs:
         run: npm i
 
       - name: Build vsd app
-        run: npm run build
+        run: npm run build -- --configuration github-pages
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
