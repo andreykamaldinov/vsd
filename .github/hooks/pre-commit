@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+bun lint-staged
+
+bun run test
+
+bun run build
+
