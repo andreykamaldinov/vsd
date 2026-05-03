@@ -1,34 +1,39 @@
 name: GitHub pages
 
 on:
-    push:
-        branches:
-            - develop
+  push:
+    branches:
+      - develop
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
-        steps:
-            - uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
 
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 20
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Install deps
-              run: npm i
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-            - name: Build sudoku app
-              run: npm run build
+      - name: Install deps
+        run: npm i
 
-            - name: Deploy demo
-              uses: peaceiris/actions-gh-pages@v3
-              with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  publish_dir: ./dist/vsd/browser
+      - name: Build vsd app
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist/vsd/browser
+
+      - name: Deploy demo
+        uses: actions/deploy-pages@v5
