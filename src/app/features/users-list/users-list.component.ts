@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { AppStore } from '../../../core/store/app.store';
-import { UserListItemComponent } from '../user-list-item/user-list-item.component';
+import { AppStore } from '../../core/store/app.store';
+import { UserListItemComponent } from './user-list-item/user-list-item.component';
 
 @Component({
     selector: 'app-users-list',
