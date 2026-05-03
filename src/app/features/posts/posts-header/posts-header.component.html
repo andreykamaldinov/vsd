@@ -7,7 +7,8 @@
 
     <p class="mt-1 text-sm text-slate-500 leading-snug">
       <span aria-live="polite">
-        {{ scrollPositionLine() }}
+
+        Showing {{ shownPostsCount() }} of {{filteredPostsTotal() }} posts
       </span>
     </p>
   </div>
@@ -17,11 +18,12 @@
 
     <input
       id="post-search"
+      #searchInput
       type="search"
       placeholder="Search title or body…"
       autocomplete="off"
       [value]="draft()"
-      (input)="onSearchInput($event)"
+      (input)="onSearchInput(searchInput.value)"
       class="flex-1 min-w-[180px] px-2.5 py-1.5 rounded-lg border border-slate-200 font-inherit
              focus-visible:outline-2 focus-visible:outline focus-visible:outline-blue-600 focus-visible:outline-offset-2"
     />
@@ -30,7 +32,7 @@
 
     <select
       id="post-sort"
-      [ngModel]="store.sort()"
+      [ngModel]="sort"
       (ngModelChange)="onSort($event)"
       class="px-2 py-1.5 rounded-lg border border-slate-200 bg-white font-inherit
              focus-visible:outline-2 focus-visible:outline focus-visible:outline-blue-600 focus-visible:outline-offset-2"

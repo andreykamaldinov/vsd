@@ -10,6 +10,7 @@ import {
 import { FormsModule } from '@angular/forms';
 
 import { AppStore } from '../../../core/store/app.store';
+import { PostSortMode } from '../../../core/models/sort-mode';
 
 @Component({
     selector: 'app-posts-header',
@@ -20,36 +21,25 @@ import { AppStore } from '../../../core/store/app.store';
     styleUrl: './posts-header.component.scss',
 })
 export class PostsHeaderComponent {
-    readonly store = inject(AppStore);
+    private readonly store = inject(AppStore);
 
-    readonly shownPostsCount = input(0);
-    readonly filteredPostsTotal = input(0);
+    public readonly sort = this.store.sort();
+    public readonly shownPostsCount = input(0);
+    public readonly filteredPostsTotal = input(0);
+    public readonly draft = signal('');
 
-    protected readonly draft = signal('');
-
-    protected readonly scrollPositionLine = computed(() => {
-        const fmt = (n: number) => n.toLocaleString('en-US');
-        const total = this.filteredPostsTotal();
-        if (total === 0) {
-            return `Showing 0 of ${fmt(0)} posts`;
-        }
-        const shown = Math.min(total, Math.max(0, this.shownPostsCount()));
-        return `Showing ${fmt(shown)} of ${fmt(total)} posts`;
-    });
-
-    constructor() {
+    public constructor() {
         effect(() => {
             this.draft.set(this.store.postSearch());
         });
     }
 
-    onSearchInput(ev: Event): void {
-        const v = (ev.target as HTMLInputElement).value;
-        this.draft.set(v);
-        this.store.setPostSearch(v);
+    public onSearchInput(value: string): void {
+        this.draft.set(value);
+        this.store.setPostSearch(value);
     }
 
-    onSort(mode: string): void {
-        this.store.setSort(mode === 'title' ? 'title' : 'recent');
+    public onSort(mode: PostSortMode): void {
+        this.store.setSort(mode);
     }
 }
