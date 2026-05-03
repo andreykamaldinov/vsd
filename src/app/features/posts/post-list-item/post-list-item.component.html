@@ -1,18 +1,30 @@
 <button
   type="button"
-  class="post-btn"
-  [class.focused]="focused()"
+  class="w-full text-left px-3.5 py-3 border border-slate-200 rounded-[10px] bg-white text-inherit cursor-pointer font-inherit flex flex-col gap-1.5
+         focus-visible:outline-2 focus-visible:outline focus-visible:outline-blue-600 focus-visible:outline-offset-2
+         data-[focused=true]:border-blue-600/40 data-[focused=true]:shadow-[0_0_0_1px_rgba(37,99,235,0.35)] data-[focused=true]:bg-blue-50/60"
   [attr.data-post-index]="index()"
+  [attr.data-focused]="focused()"
   [tabindex]="focused() ? 0 : -1"
   (click)="pick.emit(post())"
   (keydown)="onKey($event)"
 >
-  <span class="title">{{ post().title }}</span>
-  <span class="preview">{{ preview() }}</span>
-  <span class="meta">
-    <span>{{ authorName() }}</span>
+  <span class="font-semibold leading-snug">
+    {{ post().title }}
+  </span>
+
+  <span class="text-sm leading-relaxed text-slate-500 line-clamp-3">
+    {{ post().body }}
+  </span>
+
+  <span class="text-[0.78rem] text-slate-500 flex flex-wrap gap-1.5">
+    <span>{{ author()?.name }}</span>
     <span>·</span>
-    <time [attr.datetime]="isoDate()">{{ formattedDate() }}</time>
+
+    <time [attr.datetime]="post().createdAt">
+      {{ post().createdAt | date:'medium' }}
+    </time>
+
     <span>·</span>
     <span>{{ post().readTime }} min read</span>
   </span>
