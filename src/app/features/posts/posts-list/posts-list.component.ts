@@ -15,6 +15,7 @@ import type { Post } from '../../../core/models/post.model';
 import { AppStore } from '../../../core/store/app.store';
 import { VirtualScrollerComponent } from '../../../shared/virtual-scroller/virtual-scroller.component';
 import { PostDialogComponent } from '../post-dialog/post-dialog.component';
+import { PostDialogService } from '../post-dialog/post-dialog.service';
 import { PostListItemComponent } from '../post-list-item/post-list-item.component';
 import { PostsHeaderComponent } from '../posts-header/posts-header.component';
 
@@ -33,6 +34,7 @@ import { PostsHeaderComponent } from '../posts-header/posts-header.component';
 })
 export class PostsListComponent {
   private readonly store = inject(AppStore);
+  private readonly postDialog = inject(PostDialogService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly injector = inject(Injector);
 
@@ -71,17 +73,6 @@ export class PostsListComponent {
    * scroll alignment has settled across a few frames.
    */
   private blockVisibleRangeLeadSync = false;
-
-  protected readonly dialogOpen = signal(false);
-  protected readonly dialogPost = signal<Post | null>(null);
-
-  protected readonly dialogAuthor = computed(() => {
-    const p = this.dialogPost();
-    if (!p) {
-      return undefined;
-    }
-    return this.userById().get(p.userId);
-  });
 
   protected readonly trackPost = (p: Post, _i: number): number => p.id;
 
@@ -210,6 +201,15 @@ export class PostsListComponent {
         { injector: this.injector },
       );
     });
+
+    let wasDialogOpen = false;
+    effect(() => {
+      const isOpen = this.postDialog.isOpen();
+      if (wasDialogOpen && !isOpen) {
+        this.restoreFocusAfterDialogClose();
+      }
+      wasDialogOpen = isOpen;
+    });
   }
 
   openDialog(post: Post): void {
@@ -222,19 +222,7 @@ export class PostsListComponent {
     } else {
       this.beginKeyboardPostsFocusLock();
     }
-    this.dialogPost.set(post);
-    this.dialogOpen.set(true);
-  }
-
-  closeDialog(): void {
-    this.dialogOpen.set(false);
-    const idx = this.focusedIndex();
-    if (this.posts().length === 0) {
-      return;
-    }
-    const vs = this.vs();
-    vs?.scrollToIndex(idx, 'nearest', 'auto');
-    this.focusPostButton(idx);
+    this.postDialog.open(post, this.userById().get(post.userId));
   }
 
   onMoveFocus(delta: -1 | 1): void {
@@ -362,5 +350,15 @@ export class PostsListComponent {
         btn?.focus({ preventScroll: true });
       });
     });
+  }
+
+  private restoreFocusAfterDialogClose(): void {
+    const idx = this.focusedIndex();
+    if (this.posts().length === 0) {
+      return;
+    }
+    const vs = this.vs();
+    vs?.scrollToIndex(idx, 'nearest', 'auto');
+    this.focusPostButton(idx);
   }
 }

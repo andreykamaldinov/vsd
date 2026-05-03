@@ -1,0 +1,13 @@
+@if (isOpen()) {
+  <div class="backdrop" (click)="onBackdrop($event)" role="presentation"></div>
+  <div
+    class="panel"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="labelledBy()"
+    tabindex="-1"
+    #panel
+  >
+    <ng-content />
+  </div>
+}
