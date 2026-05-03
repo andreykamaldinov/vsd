@@ -19,5 +19,5 @@ jobs:
                   node-version: 20
             - name: Check quality
               run: |
-                  bun i
+                  npm i
                   bash .github/workflows/scripts/quality.sh

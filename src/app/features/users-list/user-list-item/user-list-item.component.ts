@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
-import type { User } from '../../../core/models/user.model';
+import type { User } from '../../../shared/models/user.model';
 
 @Component({
     selector: 'app-user-list-item',
-    standalone: true,
     templateUrl: './user-list-item.component.html',
     styleUrl: './user-list-item.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

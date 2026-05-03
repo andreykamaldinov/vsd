@@ -9,24 +9,21 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AppStore } from '../../../core/store/app.store';
-import { PostSortMode } from '../../../core/models/sort-mode';
+import { AppStore } from '../../../store/app.store';
+import { PostSortMode } from '../../../shared/models/sort-mode';
 
 @Component({
     selector: 'app-posts-header',
-    standalone: true,
     imports: [FormsModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './posts-header.component.html',
-    styleUrl: './posts-header.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostsHeaderComponent {
     private readonly store = inject(AppStore);
 
-    public readonly sort = this.store.sort();
-    public readonly shownPostsCount = input(0);
-    public readonly filteredPostsTotal = input(0);
+    public readonly visibleSummary = input('');
     public readonly draft = signal('');
+    public readonly sortMode = computed(() => this.store.sort());
 
     public constructor() {
         effect(() => {

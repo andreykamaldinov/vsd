@@ -9,10 +9,8 @@
         "test": "ng test",
         "lint:ts": "ng lint",
         "lint:ts:fix": "ng lint --fix",
-        "lint": "bun run lint:ts && bun run lint:scss",
-        "lint:fix": "bun run lint:ts:fix && bun run lint:scss:fix",
-        "lint:scss": "stylelint \"**/*.scss\"",
-        "lint:scss:fix": "stylelint \"**/*.scss\" --fix",
+        "lint": "npm run lint:ts",
+        "lint:fix": "npm run lint:ts:fix",
         "init:git:hooks": ".github/scripts/setup_hooks.sh"
     },
     "private": true,
@@ -25,7 +23,9 @@
         "@angular/platform-browser": "^21.2.11",
         "@angular/router": "^21.2.11",
         "rxjs": "~7.8.2",
-        "tslib": "^2.8.1"
+        "tslib": "^2.8.1",
+        "@commitlint/cli": "20.5.3",
+        "@commitlint/config-conventional": "20.5.3"
     },
     "devDependencies": {
         "@angular/build": "^21.2.9",
@@ -34,14 +34,14 @@
         "@eslint/js": "^10.0.1",
         "@tailwindcss/postcss": "^4.2.4",
         "angular-eslint": "21.3.1",
-        "eslint": "^10.0.3",
+        "eslint": "^10.3.0",
         "jsdom": "^29.1.1",
         "postcss": "^8.5.13",
         "prettier": "^3.8.3",
         "tailwindcss": "^4.2.4",
         "typescript": "~5.9.3",
-        "typescript-eslint": "8.56.1",
+        "typescript-eslint": "8.59.1",
         "vitest": "^4.1.5",
-        "lint-staged": "16.2.7"
+        "lint-staged": "16.4.0"
     }
 }

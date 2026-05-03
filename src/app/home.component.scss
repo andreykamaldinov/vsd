@@ -1,47 +1,6 @@
 :host {
   display: block;
   height: 100dvh;
-  --surface: #ffffff;
-  --surface-2: #f8fafc;
-  --text: #0f172a;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --ring: #2563eb;
-  --row-bg: transparent;
-  color: var(--text);
-  background: var(--surface-2);
-}
-
-.shell {
-  display: flex;
-  height: 100%;
-  min-height: 0;
-  max-width: 1600px;
-  margin: 0 auto;
-}
-
-.users-pane {
-  flex: none;
-  width: 320px;
-  min-width: 260px;
-  max-width: 40vw;
-}
-
-.posts-pane {
-  flex: 1;
-  min-width: 0;
-}
-
-@media (max-width: 720px) {
-  .shell {
-    flex-direction: column;
-  }
-
-  .users-pane {
-    width: 100%;
-    max-width: none;
-    max-height: 42dvh;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+  background-color: #f8fafc;
+  color: #0f172a;
 }

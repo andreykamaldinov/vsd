@@ -2,10 +2,12 @@ import type { Comment } from '../models/comment.model';
 import type { Post } from '../models/post.model';
 import type { User } from '../models/user.model';
 
-/** Mulberry32 — deterministic PRNG from a 32-bit seed. */
 export function mulberry32(seed: number): () => number {
+    let state = seed;
+
     return () => {
-        let t = (seed += 0x6d2b79f5);
+        state += 0x6d2b79f5;
+        let t = state;
         t = Math.imul(t ^ (t >>> 15), t | 1);
         t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
@@ -267,7 +269,8 @@ const TAG_POOL = [
 const AVATAR_HUES = [210, 24, 142, 48, 280, 168, 32, 200, 12, 320, 96, 260];
 
 function pick<T>(rand: () => number, arr: readonly T[]): T {
-    return arr[Math.floor(rand() * arr.length)]!;
+    const index = Math.floor(rand() * arr.length);
+    return arr[index] as T;
 }
 
 function buildParagraph(rand: () => number, minWords: number, maxWords: number): string {
@@ -308,7 +311,7 @@ export function generateUsers(count: number, seed = 42): User[] {
         const email = `${first.toLowerCase()}.${last.toLowerCase()}@${company
             .toLowerCase()
             .replace(/\s+/g, '')}.example.com`;
-        const hue = AVATAR_HUES[id % AVATAR_HUES.length]!;
+        const hue = AVATAR_HUES[id % AVATAR_HUES.length] ?? AVATAR_HUES[0];
         users.push({
             id,
             name: `${first} ${last}`,
@@ -345,28 +348,6 @@ export function generatePosts(count: number, userCount: number, seed = 42): Post
     return posts;
 }
 
-// /** Deterministic count in the inclusive range 2..15 (assignment requirement). */
-// export function commentCountForPost(postId: number): number {
-//   return 2 + (Math.abs(postId) % 14);
-// }
-//
-// export function generateCommentsForPost(postId: number, count: number, seed: number): Comment[] {
-//   const rand = mulberry32(seed ^ (postId * 2654435761));
-//   const comments: Comment[] = [];
-//   const baseTime = Date.UTC(2024, 0, 1);
-//   for (let i = 0; i < count; i++) {
-//     const first = pick(rand, FIRST);
-//     const last = pick(rand, LAST);
-//     comments.push({
-//       id: postId * 10000 + i,
-//       postId,
-//       author: `${first} ${last}`,
-//       body: buildParagraph(rand, 6, 36),
-//       createdAt: baseTime + Math.floor(rand() * 1000 * 60 * 60 * 24 * 120),
-//     });
-//   }
-//   return comments;
-// }
 export function generateCommentsForPost(postId: number): Comment[] {
     const count = 2 + (Math.abs(postId) % 14);
 
