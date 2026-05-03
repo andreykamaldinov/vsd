@@ -2,7 +2,6 @@ import type { Comment } from '../models/comment.model';
 import type { Post } from '../models/post.model';
 import type { User } from '../models/user.model';
 
-/** Mulberry32 — deterministic PRNG from a 32-bit seed. */
 export function mulberry32(seed: number): () => number {
     return () => {
         let t = (seed += 0x6d2b79f5);
@@ -345,28 +344,6 @@ export function generatePosts(count: number, userCount: number, seed = 42): Post
     return posts;
 }
 
-// /** Deterministic count in the inclusive range 2..15 (assignment requirement). */
-// export function commentCountForPost(postId: number): number {
-//   return 2 + (Math.abs(postId) % 14);
-// }
-//
-// export function generateCommentsForPost(postId: number, count: number, seed: number): Comment[] {
-//   const rand = mulberry32(seed ^ (postId * 2654435761));
-//   const comments: Comment[] = [];
-//   const baseTime = Date.UTC(2024, 0, 1);
-//   for (let i = 0; i < count; i++) {
-//     const first = pick(rand, FIRST);
-//     const last = pick(rand, LAST);
-//     comments.push({
-//       id: postId * 10000 + i,
-//       postId,
-//       author: `${first} ${last}`,
-//       body: buildParagraph(rand, 6, 36),
-//       createdAt: baseTime + Math.floor(rand() * 1000 * 60 * 60 * 24 * 120),
-//     });
-//   }
-//   return comments;
-// }
 export function generateCommentsForPost(postId: number): Comment[] {
     const count = 2 + (Math.abs(postId) % 14);
 

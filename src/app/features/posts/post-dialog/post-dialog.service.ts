@@ -10,17 +10,17 @@ export class PostDialogService {
   private readonly postState = signal<Post | null>(null);
   private readonly authorState = signal<User | undefined>(undefined);
 
-  readonly isOpen = this.dialog.isOpen;
-  readonly post = this.postState.asReadonly();
-  readonly author = this.authorState.asReadonly();
+  public readonly isOpen = this.dialog.isOpen;
+  public readonly post = this.postState.asReadonly();
+  public readonly author = this.authorState.asReadonly();
 
-  open(post: Post, author: User | undefined): void {
+  public open(post: Post, author: User | undefined): void {
     this.postState.set(post);
     this.authorState.set(author);
     this.dialog.open();
   }
 
-  close(): void {
+  public close(): void {
     this.dialog.close();
   }
 }

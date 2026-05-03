@@ -6,10 +6,7 @@
     <h2 class="m-0 text-base font-semibold">Posts</h2>
 
     <p class="mt-1 text-sm text-slate-500 leading-snug">
-      <span aria-live="polite">
-
-        Showing {{ shownPostsCount() }} of {{filteredPostsTotal() }} posts
-      </span>
+      <span aria-live="polite">{{ visibleSummary() }}</span>
     </p>
   </div>
 
@@ -32,7 +29,7 @@
 
     <select
       id="post-sort"
-      [ngModel]="sort"
+      [ngModel]="sortMode()"
       (ngModelChange)="onSort($event)"
       class="px-2 py-1.5 rounded-lg border border-slate-200 bg-white font-inherit
              focus-visible:outline-2 focus-visible:outline focus-visible:outline-blue-600 focus-visible:outline-offset-2"

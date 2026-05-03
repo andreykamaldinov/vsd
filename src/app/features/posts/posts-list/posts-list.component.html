@@ -1,41 +1,40 @@
-<section class="posts-col" aria-label="Posts">
-  <app-posts-header
-    [shownPostsCount]="shownPostsCount()"
-    [filteredPostsTotal]="posts().length"
-  />
+<section class="flex min-h-0 flex-1 flex-col" aria-label="Posts">
+  <app-posts-header [visibleSummary]="postsScrollHeaderSummary()" />
   <div
-    class="scroll-wrap"
+    class="flex min-h-0 flex-1 flex-col px-4 pb-4 focus-visible:outline-none"
     role="list"
     aria-label="Post list"
-    [tabIndex]="posts().length ? 0 : -1"
-    (keydown)="onPostsListKeydown($event)"
-    (mousedown)="onPostsListMouseDown($event)"
+    appPostList
+    [posts]="posts()"
+    [virtualScroll]="postsVirtualScroll()"
+    (activatePost)="openPost($event)"
   >
     @if (posts().length === 0) {
-      <p class="empty" role="status">No posts match the current filters.</p>
+      <p class="my-8 mx-2 text-center text-[0.95rem] text-slate-500" role="status">
+        No posts match the current filters.
+      </p>
     } @else {
-      <app-virtual-scroller
-        #vs
-        class="list-viewport"
+      <app-ui-virtual-scroll
+        class="min-h-0 flex-1"
         [items]="posts()"
-        [trackBy]="trackPost"
-        [estimatedItemHeight]="200"
-        [overscan]="8"
-        (visibleRangeChange)="onPostsVisibleRange($event)"
-        (renderedRangeChange)="onRenderedRangeChange($event)"
+        [itemHeight]="postRowHeightPx()"
+        [height]="'100%'"
+        [buffer]="6"
+        itemLabelSingular="post"
+        itemLabelPlural="posts"
+        (headerSummaryChange)="postsScrollHeaderSummary.set($event)"
       >
-        <ng-template let-post let-index="index">
-          <app-post-list-item
-            [post]="post"
-            [index]="index"
-            [author]="userById().get(post.userId)"
-            [focused]="index === focusedIndex()"
-            (pick)="openDialog($event)"
-            (moveFocus)="onMoveFocus($event)"
-            (activate)="openDialog($event)"
-          />
+        <ng-template #itemTemplate let-post>
+          <div class="box-border flex h-full min-h-0 flex-col px-0.5 pb-2">
+            <app-post-list-item
+              class="min-h-0 flex-1"
+              [post]="post"
+              [author]="userById().get(post.userId)"
+              (pick)="openPost($event)"
+            />
+          </div>
         </ng-template>
-      </app-virtual-scroller>
+      </app-ui-virtual-scroll>
     }
   </div>
 </section>

@@ -1,12 +1,16 @@
 @if (isOpen()) {
-  <div class="backdrop" (click)="onBackdrop($event)" role="presentation"></div>
   <div
-    class="panel"
+    role="presentation"
+    class="pointer-events-auto absolute inset-0 bg-slate-900/45 backdrop-blur-[2px]"
+    (click)="onBackdrop($event)"
+  ></div>
+  <div
+    #panel
+    class="pointer-events-auto absolute top-1/2 left-1/2 w-[min(640px,calc(100vw-2rem))] max-h-[min(85vh,900px)] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-xl bg-white px-6 pt-5 pb-6 text-slate-900 shadow-2xl outline-none focus-visible:shadow-[0_0_0_3px_#2563eb,0_25px_50px_-12px_rgba(0,0,0,0.35)]"
     role="dialog"
     aria-modal="true"
-    [attr.aria-labelledby]="labelledBy()"
     tabindex="-1"
-    #panel
+    [attr.aria-labelledby]="labelledBy()"
   >
     <ng-content />
   </div>

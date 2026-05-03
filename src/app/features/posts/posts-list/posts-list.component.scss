@@ -1,36 +1,8 @@
-@use '../../../shared/styles/feature-layout' as layout;
-
 :host {
   display: flex;
-  flex-direction: column;
-  min-height: 0;
   height: 100%;
-  background: var(--surface, #fff);
-}
-
-.posts-col {
-  @include layout.flex-column-grow;
-}
-
-.scroll-wrap {
-  flex: 1;
   min-height: 0;
-  display: flex;
+  min-width: 0;
   flex-direction: column;
-  padding: 0 0.65rem 0.85rem;
-
-  &:focus-visible {
-    outline: none;
-  }
-}
-
-.list-viewport {
-  @include layout.list-viewport-flex;
-}
-
-.empty {
-  margin: 2rem 0.5rem;
-  text-align: center;
-  color: var(--muted, #64748b);
-  font-size: 0.95rem;
+  background-color: #fff;
 }

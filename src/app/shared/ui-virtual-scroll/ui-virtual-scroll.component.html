@@ -1,0 +1,24 @@
+<div
+  #viewport
+  class="vs-viewport box-border overflow-x-hidden overflow-y-auto [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb]:bg-slate-400/30"
+  [style.height]="viewportHeightCss()"
+  (scroll)="onScroll($event)"
+>
+  <div class="relative w-full" [style.height.px]="totalScrollHeight()">
+    <div class="will-change-transform" [style.transform]="contentTransform()">
+      @if (itemTemplate(); as tpl) {
+        @for (viewItem of visibleViewItems(); track viewItem.index) {
+          <div class="vs-item box-border w-full shrink-0" [style.height.px]="itemHeight()">
+            <ng-container
+              [ngTemplateOutlet]="tpl"
+              [ngTemplateOutletContext]="{
+                $implicit: viewItem.item,
+                index: viewItem.index,
+              }"
+            />
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

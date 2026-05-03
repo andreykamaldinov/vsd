@@ -1,37 +1,6 @@
 :host {
+  pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 50;
-  pointer-events: none;
-}
-
-.backdrop {
-  pointer-events: auto;
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(2px);
-}
-
-.panel {
-  pointer-events: auto;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(640px, calc(100vw - 2rem));
-  max-height: min(85vh, 900px);
-  overflow: auto;
-  background: var(--surface, #fff);
-  color: var(--text, #0f172a);
-  border-radius: 12px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-  padding: 1.25rem 1.5rem 1.5rem;
-  outline: none;
-
-  &:focus-visible {
-    box-shadow:
-      0 0 0 3px var(--ring, #2563eb),
-      0 25px 50px -12px rgba(0, 0, 0, 0.35);
-  }
 }

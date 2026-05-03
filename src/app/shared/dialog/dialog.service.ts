@@ -2,15 +2,15 @@ import { Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {
-  private readonly openState = signal(false);
+    private readonly _openState = signal(false);
 
-  readonly isOpen = this.openState.asReadonly();
+    public readonly isOpen = this._openState.asReadonly();
 
-  open(): void {
-    this.openState.set(true);
-  }
+    public open(): void {
+        this._openState.set(true);
+    }
 
-  close(): void {
-    this.openState.set(false);
-  }
+    public close(): void {
+        this._openState.set(false);
+    }
 }
