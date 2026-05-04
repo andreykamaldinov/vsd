@@ -1,9 +1,8 @@
 <button
   type="button"
   class="flex h-full min-h-0 w-full cursor-pointer items-start gap-3 overflow-hidden rounded-lg border border-transparent bg-transparent px-3 py-2.5 text-left text-inherit transition-colors hover:border-blue-300 hover:bg-blue-50 aria-selected:border-blue-300 aria-selected:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-  role="option"
   [attr.data-user-index]="index()"
-  [attr.aria-selected]="selected()"
+  [attr.aria-pressed]="selected()"
   (click)="onToggle()"
 >
   <span
@@ -14,11 +13,11 @@
   <span class="flex min-w-0 flex-1 flex-col gap-1">
     <span class="truncate leading-5 font-semibold" [attr.title]="user().name">{{ user().name }}</span>
     <span
-      class="truncate text-xs leading-snug text-slate-500"
+      class="truncate text-xs leading-snug text-slate-600"
       [attr.title]="user().role + ' · ' + user().company"
     >
       {{ user().role }} · {{ user().company }}
     </span>
-    <span class="truncate text-xs leading-snug text-slate-500" [attr.title]="user().email">{{ user().email }}</span>
+    <span class="truncate text-xs leading-snug text-slate-700" [attr.title]="user().email">{{ user().email }}</span>
   </span>
 </button>
